@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1 class="dashboard-title">Employee Directory</h1>
+    <a href="{{ url_for('onboard') }}" class="btn btn-primary">+ Onboard New Employee</a>
+</div>
+
+<div class="card">
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Designation</th>
+                    <th>Salary (₹)</th>
+                    <th>Join Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for emp in employees %}
+                <tr>
+                    <td>#{{ emp.id }}</td>
+                    <td style="font-weight: 600; color: var(--dark);">{{ emp.name }}</td>
+                    <td>{{ emp.email }}</td>
+                    <td>{{ emp.phone }}</td>
+                    <td><span class="badge">{{ emp.designation }}</span></td>
+                    <td style="font-weight: 500; color: var(--secondary);">₹{{ "{:,.2f}".format(emp.salary) }}</td>
+                    <td>{{ emp.date_joined }}</td>
+                    <td>
+                        <a href="{{ url_for('edit', id=emp.id) }}" class="btn btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Edit</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="8" style="text-align: center; padding: 3rem; color: #64748b; font-size: 1.1rem;">
+                        No employees found. Start onboarding amazing talent!
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    {% if total_pages and total_pages > 1 %}
+    <div class="pagination">
+        {% if page > 1 %}
+        <a href="{{ url_for('dashboard', page=page-1) }}" class="btn btn-outline">&laquo; Previous</a>
+        {% endif %}
+        
+        <span class="page-info">Page {{ page }} of {{ total_pages }}</span>
+        
+        {% if page < total_pages %}
+        <a href="{{ url_for('dashboard', page=page+1) }}" class="btn btn-outline">Next &raquo;</a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

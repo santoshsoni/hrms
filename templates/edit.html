@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card" style="max-width: 800px; margin: 0 auto;">
+    <h2 style="margin-bottom: 2rem; color: var(--dark);">Edit Employee Details</h2>
+
+    <form method="POST" action="{{ url_for('edit', id=emp.id) }}">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div class="form-group">
+                <label class="form-label" for="name">Full Name</label>
+                <input type="text" id="name" name="name" class="form-control" value="{{ emp.name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="email">Email Address</label>
+                <input type="email" id="email" name="email" class="form-control" value="{{ emp.email }}" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" class="form-control" value="{{ emp.phone }}" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="designation">Designation</label>
+                <input type="text" id="designation" name="designation" class="form-control"
+                    value="{{ emp.designation }}" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="salary">Salary Component (₹)</label>
+                <input type="number" step="0.01" id="salary" name="salary" class="form-control" value="{{ emp.salary }}"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="date_joined">Joining Date</label>
+                <input type="date" id="date_joined" name="date_joined" class="form-control"
+                    value="{{ emp.date_joined }}" required>
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem; display: flex; justify-content: flex-end; gap: 1rem;">
+            <a href="{{ url_for('dashboard') }}" class="btn"
+                style="background: var(--light); border: 1px solid var(--border);">Cancel</a>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
