@@ -1,4 +1,4 @@
-#Soni###################################
+##Added### Dev
 import mysql.connector
 from werkzeug.security import generate_password_hash
 
